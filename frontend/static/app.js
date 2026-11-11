@@ -1,0 +1,2 @@
+async function check(path){try{const r=await fetch(path);if(!r.ok)throw new Error(r.status);return await r.json()}catch(e){return {error:String(e)}}}
+(async()=>{const h=await check('/api/v1/system/health');document.getElementById('health').textContent=h.status||'Unavailable';const c=document.getElementById('checks');const comfy=await check('/api/v1/comfy/status');c.innerHTML='<div class="mb-2">API: '+(h.status==='ok'?'Connected':'Unavailable')+'</div><div>ComfyUI: '+(comfy.error?'Not connected':'Connected')+'</div>';})();
